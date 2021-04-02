@@ -1,22 +1,50 @@
 import "./App.css"
+import Layout from "../Layout/Index"
+import { createMuiTheme, ThemeProvider } from "@material-ui/core"
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom/cjs/react-router-dom.min"
+import Home from "../Pages/Home/Index"
+import Signin from "../Pages/Signin/Index"
+import Signup from "../Pages/Signup/Index"
+
+const theme = createMuiTheme({
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 960,
+      lg: 1280,
+      xl: 1920,
+    },
+  },
+  palette: {
+    primary: {
+      light: "#a57bff",
+      main: "#844AFF",
+      dark: "#5109ee",
+    },
+    secondary: {
+      light: "#fa8a4e",
+      main: "#FF782D",
+      dark: "#f75600",
+    },
+  },
+})
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <Router>
+        <Switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/signin" component={Signin} />
+          <Route path="/signup" component={Signup} />
+        </Switch>
+      </Router>
+    </ThemeProvider>
   )
 }
 
