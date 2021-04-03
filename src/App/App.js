@@ -1,6 +1,9 @@
 import "./App.css"
-import Layout from "../Layout/Index"
-import { createMuiTheme, ThemeProvider } from "@material-ui/core"
+import {
+  createMuiTheme,
+  ThemeProvider,
+  responsiveFontSizes,
+} from "@material-ui/core"
 import {
   BrowserRouter as Router,
   Switch,
@@ -9,8 +12,9 @@ import {
 import Home from "../Pages/Home/Index"
 import Signin from "../Pages/Signin/Index"
 import Signup from "../Pages/Signup/Index"
+import Table from "../Pages/Table"
 
-const theme = createMuiTheme({
+let theme = createMuiTheme({
   breakpoints: {
     values: {
       xs: 0,
@@ -34,6 +38,8 @@ const theme = createMuiTheme({
   },
 })
 
+responsiveFontSizes(theme)
+
 function App() {
   return (
     <ThemeProvider theme={theme}>
@@ -42,6 +48,7 @@ function App() {
           <Route path="/" exact component={Home} />
           <Route path="/signin" component={Signin} />
           <Route path="/signup" component={Signup} />
+          <Route path="/table" component={Table} />
         </Switch>
       </Router>
     </ThemeProvider>

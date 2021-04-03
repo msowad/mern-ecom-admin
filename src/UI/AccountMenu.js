@@ -1,6 +1,7 @@
 import { IconButton, Menu, MenuItem } from "@material-ui/core"
 import { AccountCircle } from "@material-ui/icons"
 import React from "react"
+import { Link } from "react-router-dom"
 
 export default function AccountMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null)
@@ -43,6 +44,12 @@ export default function AccountMenu() {
         <MenuItem onClick={handleClose}>Profile</MenuItem>
         <MenuItem onClick={handleClose}>My account</MenuItem>
         <MenuItem onClick={handleClose}>Logout</MenuItem>
+        <MenuItem component={Link} to="/signin">
+          Signin
+        </MenuItem>
+        <MenuItem component={Link} to="/signup">
+          Signup
+        </MenuItem>
       </Menu>
     </>
   )

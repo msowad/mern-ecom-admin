@@ -9,9 +9,11 @@ import IconButton from "@material-ui/core/IconButton"
 import MenuIcon from "@material-ui/icons/Menu"
 import Toolbar from "@material-ui/core/Toolbar"
 import { makeStyles, useTheme } from "@material-ui/core/styles"
-import Header from "./Header"
 import NavLinks from "./NavLinks"
 import logo from "../logo.png"
+import SearchInput from "../UI/SearchInput"
+import AccountMenu from "../UI/AccountMenu"
+import MessageMenu from "../UI/MessageMenu"
 
 const drawerWidth = 220
 
@@ -27,10 +29,7 @@ const useStyles = makeStyles(theme => ({
     },
   },
   appBar: {
-    [theme.breakpoints.up("lg")]: {
-      width: `calc(100% - ${drawerWidth}px)`,
-      marginLeft: drawerWidth,
-    },
+    zIndex: theme.zIndex.drawer + 1,
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -38,7 +37,6 @@ const useStyles = makeStyles(theme => ({
       display: "none",
     },
   },
-  // necessary for content to be below app bar
   headerToolbar: {
     justifyContent: "space-between",
   },
@@ -58,6 +56,13 @@ const useStyles = makeStyles(theme => ({
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
+  },
+  headerLeft: {
+    display: "flex",
+    alignItems: "center",
+  },
+  menu: {
+    display: "flex",
   },
 }))
 
@@ -89,20 +94,30 @@ function ResponsiveDrawer(props) {
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar className={classes.headerToolbar}>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            className={classes.menuButton}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Header />
+          <div className={classes.headerLeft}>
+            <Hidden mdDown implementation="css">
+              <img src={logo} />
+            </Hidden>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={handleDrawerToggle}
+              className={classes.menuButton}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Hidden implementation="css" xsDown>
+              <SearchInput />
+            </Hidden>
+          </div>
+          <div className={classes.menu}>
+            <MessageMenu />
+            <AccountMenu />
+          </div>
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label="mailbox folders">
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Hidden smUp implementation="css">
           <Drawer
             container={container}
@@ -114,7 +129,7 @@ function ResponsiveDrawer(props) {
               paper: classes.drawerPaper,
             }}
             ModalProps={{
-              keepMounted: true, // Better open performance on mobile.
+              keepMounted: true,
             }}
           >
             {drawer}

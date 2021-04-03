@@ -6,6 +6,7 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     alignItems: "center",
     color: theme.palette.secondary.main,
+    marginBottom: theme.spacing(3),
   },
   avatar: {
     marginRight: theme.spacing(1),

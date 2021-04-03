@@ -1,22 +1,32 @@
 import React from "react"
-import InboxIcon from "@material-ui/icons/MoveToInbox"
-import List from "@material-ui/core/List"
-import ListItem from "@material-ui/core/ListItem"
 import ListItemIcon from "@material-ui/core/ListItemIcon"
-import ListItemText from "@material-ui/core/ListItemText"
-import MailIcon from "@material-ui/icons/Mail"
+import { Link } from "react-router-dom"
+import { MenuList, MenuItem } from "@material-ui/core"
+import { compose } from "recompose"
+import { withRouter } from "react-router-dom/cjs/react-router-dom.min"
+import { DashboardTwoTone, GridOn } from "@material-ui/icons"
 
-export default function NavLinks() {
+export function NavLinks(props) {
+  const {
+    location: { pathname },
+  } = props
+
   return (
-    <List>
-      {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-        <ListItem button key={text}>
-          <ListItemIcon>
-            {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-          </ListItemIcon>
-          <ListItemText primary={text} />
-        </ListItem>
-      ))}
-    </List>
+    <MenuList>
+      <MenuItem component={Link} to="/" selected={"/" === pathname}>
+        <ListItemIcon>
+          <DashboardTwoTone />
+        </ListItemIcon>
+        Dashboard
+      </MenuItem>
+      <MenuItem component={Link} to="/table" selected={"/table" === pathname}>
+        <ListItemIcon>
+          <GridOn />
+        </ListItemIcon>
+        Table
+      </MenuItem>
+    </MenuList>
   )
 }
+
+export default compose(withRouter)(NavLinks)
